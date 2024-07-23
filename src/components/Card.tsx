@@ -5,11 +5,11 @@ import axios from "axios";
 interface CardProps {
   imageType: "laptopMobileView" | "brand";
   mainImage: string;
-  description: string;
+  metadataimage: string;
   id: string;
 }
 
-const Card: React.FC<CardProps> = ({ imageType, mainImage, description, id }) => {
+const Card: React.FC<CardProps> = ({ imageType, mainImage, metadataimage, id }) => {
   const navigate = useNavigate();
 
   const handleClick = () => {
@@ -46,7 +46,7 @@ const Card: React.FC<CardProps> = ({ imageType, mainImage, description, id }) =>
      
     >
       <img  onClick={handleClick} src={mainImage} alt="main" className="w-full h-auto mb-5 rounded-lg" />
-      <h2 className="text-2xl font-bold mb-3">{description}</h2>
+      <h2 className="text-2xl font-bold mb-3">{metadataimage}</h2>
       <div className="flex justify-between">
         <button
           className="p-2 bg-black text-white rounded-sm hover:bg-gray-900"

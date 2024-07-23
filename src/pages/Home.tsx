@@ -30,7 +30,7 @@ const Home: React.FC = () => {
             key={work._id}
             imageType={work.imageType}
             mainImage={work.image}
-            description={work.description}
+            metadataimage={work.metadataimage}
             id={work._id}
           />
         ))}

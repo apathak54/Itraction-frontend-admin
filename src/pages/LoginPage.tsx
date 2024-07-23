@@ -18,11 +18,12 @@ const LoginPage: React.FC = () => {
         password,
       });
 
-      if (response.data.success) {
+      if (response) {
         // Redirect or handle successful login
-        navigate("/dashboard"); // Redirect to dashboard or another page
+        navigate('/dashboard');
+       
       } else {
-        setError(response.data.message); // Set error message from server
+        setError(response); // Set error message from server
       }
     } catch (err) {
       setError("An error occurred. Please try again.");

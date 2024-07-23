@@ -4,11 +4,14 @@ import axios from 'axios';
 const FeaturedWorkForm: React.FC = () => {
   const [image, setImage] = useState('');
   const [description, setDescription] = useState('');
+  const [metadataimage , setMetadataimage] = useState('')
+  const [title , setTitle ] = useState('')
   const [mobileViewImages, setMobileViewImages] = useState<string[]>(['']);
   const [laptopViewImages, setLaptopViewImages] = useState<string[]>(['']);
   const [brandImages, setBrandImages] = useState<string[]>(['']);
   const [imageType, setImageType] = useState('laptopMobileView'); // Added state for image type
   const [message, setMessage] = useState(''); // Added state for success message
+  const [websiteUrl , setWebsiteUrl] = useState('')
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -16,19 +19,25 @@ const FeaturedWorkForm: React.FC = () => {
     try {
       await axios.post('http://localhost:8080/api/featured-work', {
         image,
+        metadataimage,
+        title,
         description,
         mobileViewImages: mobileViewImages.filter(url => url.trim() !== ''),
         laptopViewImages: laptopViewImages.filter(url => url.trim() !== ''),
         brandImages: brandImages.filter(url => url.trim() !== ''),
         imageType,
+        websiteUrl,
       });
 
       // Clear form fields and show success message after successful submission
       setImage('');
+      setMetadataimage('')
+      setTitle('')
       setDescription('');
       setMobileViewImages(['']);
       setLaptopViewImages(['']);
       setBrandImages(['']);
+      setWebsiteUrl('')
       setMessage('Featured work added successfully!');
     } catch (error) {
       console.error('Error submitting form:', error);
@@ -72,6 +81,28 @@ const FeaturedWorkForm: React.FC = () => {
           />
         </div>
         <div>
+          <label className="block text-sm font-medium mb-1" htmlFor="image">Meta Data</label>
+          <input
+            id="metadataimage"
+            type="text"
+            value={metadataimage}
+            onChange={(e) => setMetadataimage(e.target.value)}
+            className="w-full px-3 py-2 border rounded-md"
+            placeholder="Enter main image URL"
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium mb-1" htmlFor="image">Title</label>
+          <input
+            id="title"
+            type="text"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            className="w-full px-3 py-2 border rounded-md"
+            placeholder="Enter main image URL"
+          />
+        </div>
+        <div>
           <label className="block text-sm font-medium mb-1" htmlFor="description">Description</label>
           <textarea
             id="description"
@@ -79,6 +110,17 @@ const FeaturedWorkForm: React.FC = () => {
             onChange={(e) => setDescription(e.target.value)}
             className="w-full px-3 py-2 border rounded-md"
             placeholder="Enter description"
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium mb-1" htmlFor="image">WebSiteUrl</label>
+          <input
+            id="websiterurl"
+            type="text"
+            value={websiteUrl}
+            onChange={(e) => setWebsiteUrl(e.target.value)}
+            className="w-full px-3 py-2 border rounded-md"
+            placeholder="Enter website  URL"
           />
         </div>
         <div>
@@ -93,6 +135,7 @@ const FeaturedWorkForm: React.FC = () => {
             <option value="brandImages">Brand Images</option>
           </select>
         </div>
+       
         {imageType === 'laptopMobileView' ? (
           <>
             <div>

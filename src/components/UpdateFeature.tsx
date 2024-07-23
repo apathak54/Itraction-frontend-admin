@@ -5,24 +5,31 @@ import { useParams } from 'react-router-dom';
 const UpdateFeaturedWorkForm: React.FC = () => {
   const {id} = useParams();
   const [image, setImage] = useState('');
+  const [metadataimage , setMetadataimage] = useState('')
+  const [title , setTitle ] = useState('')
   const [description, setDescription] = useState('');
   const [mobileViewImages, setMobileViewImages] = useState<string[]>(['']);
   const [laptopViewImages, setLaptopViewImages] = useState<string[]>(['']);
   const [brandImages, setBrandImages] = useState<string[]>(['']);
   const [imageType, setImageType] = useState('laptopMobileView');
   const [message, setMessage] = useState('');
+  const [websiteUrl , setWebsiteUrl] = useState('')
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get(`http://localhost:8080/api/featured-work/${id}`);
         const data = response.data;
+        setWebsiteUrl(data.websiteUrl)
         setImage(data.image);
+        setMetadataimage(data.metadataimage)
+        setTitle(data.title)
         setDescription(data.description);
         setMobileViewImages(data.mobileViewImages || ['']);
         setLaptopViewImages(data.laptopViewImages || ['']);
         setBrandImages(data.brandImages || ['']);
         setImageType(data.imageType || 'laptopMobileView');
+        
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -37,11 +44,14 @@ const UpdateFeaturedWorkForm: React.FC = () => {
     try {
       await axios.put(`http://localhost:8080/api/featured-work/${id}`, {
         image,
+        metadataimage,
         description,
+        title,
         mobileViewImages: mobileViewImages.filter(url => url.trim() !== ''),
         laptopViewImages: laptopViewImages.filter(url => url.trim() !== ''),
         brandImages: brandImages.filter(url => url.trim() !== ''),
         imageType,
+        websiteUrl
       });
 
       setMessage('Featured work updated successfully!');
@@ -87,6 +97,28 @@ const UpdateFeaturedWorkForm: React.FC = () => {
           />
         </div>
         <div>
+          <label className="block text-sm font-medium mb-1" htmlFor="image">Meta Data</label>
+          <input
+            id="metadataimage"
+            type="text"
+            value={metadataimage}
+            onChange={(e) => setMetadataimage(e.target.value)}
+            className="w-full px-3 py-2 border rounded-md"
+            placeholder="Enter metaData that would be written in card"
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium mb-1" htmlFor="image">Title</label>
+          <input
+            id="title"
+            type="text"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            className="w-full px-3 py-2 border rounded-md"
+            placeholder="Enter title"
+          />
+        </div>
+        <div>
           <label className="block text-sm font-medium mb-1" htmlFor="description">Description</label>
           <textarea
             id="description"
@@ -94,6 +126,16 @@ const UpdateFeaturedWorkForm: React.FC = () => {
             onChange={(e) => setDescription(e.target.value)}
             className="w-full px-3 py-2 border rounded-md"
             placeholder="Enter description"
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium mb-1" htmlFor="description">WebsiteUrl</label>
+          <input
+            id="websiterurl"
+            value={websiteUrl}
+            onChange={(e) => setWebsiteUrl(e.target.value)}
+            className="w-full px-3 py-2 border rounded-md"
+            placeholder="Enter website Url"
           />
         </div>
         <div>

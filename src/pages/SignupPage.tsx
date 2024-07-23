@@ -28,11 +28,11 @@ const SignupPage: React.FC = () => {
         password,
       });
 
-      if (response.data.success) {
+      if (response) {
         setSuccessMessage("Signup successful! Redirecting...");
         setTimeout(() => navigate("/"), 2000); // Redirect after 2 seconds
       } else {
-        setError(response.data.message); // Set error message from server
+        setError(response); // Set error message from server
       }
     } catch (err) {
       setError("An error occurred. Please try again.");
