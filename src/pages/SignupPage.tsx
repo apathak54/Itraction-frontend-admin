@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import axiosInstance from "../config/axios";
 
 const SignupPage: React.FC = () => {
   const [username, setName] = useState("");
@@ -22,7 +22,7 @@ const SignupPage: React.FC = () => {
     }
 
     try {
-      const response = await axios.post("http://localhost:8080/api/user/signup", {
+      const response = await axiosInstance.post("/user/signup", {
         username,
         email,
         password,

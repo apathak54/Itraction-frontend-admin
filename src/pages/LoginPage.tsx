@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import axios from "axios";
 import {  useNavigate } from "react-router-dom";
+import axiosInstance from "../config/axios";
 
 const LoginPage: React.FC = () => {
   const [email, setEmail] = useState("");
@@ -13,7 +13,7 @@ const LoginPage: React.FC = () => {
     setError(""); // Clear previous errors
 
     try {
-      const response = await axios.post("http://localhost:8080/api/user/signin", {
+      const response = await axiosInstance.post("/user/signin", {
         email,
         password,
       });
@@ -31,7 +31,7 @@ const LoginPage: React.FC = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
+    <div className="flex items-center justify-center min-h-screen bg-gray-400">
       <div className="w-full max-w-md p-8 bg-white shadow-md rounded-lg">
         <h1 className="text-3xl font-bold mb-6 text-center">Login</h1>
         {error && <p className="text-red-500 text-center mb-4">{error}</p>}
@@ -67,10 +67,6 @@ const LoginPage: React.FC = () => {
             Login
           </button>
         </form>
-        <p className="mt-4 text-center">
-          Don't have an account?{" "}
-          <a href="/signup" className="text-blue-500 hover:underline">Sign Up</a>
-        </p>
       </div>
     </div>
   );

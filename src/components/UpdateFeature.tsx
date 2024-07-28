@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import axiosInstance from '../config/axios';
 
 const UpdateFeaturedWorkForm: React.FC = () => {
   const {id} = useParams();
@@ -18,7 +18,7 @@ const UpdateFeaturedWorkForm: React.FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:8080/api/featured-work/${id}`);
+        const response = await axiosInstance.get(`/featured-work/${id}`);
         const data = response.data;
         setWebsiteUrl(data.websiteUrl)
         setImage(data.image);
@@ -42,7 +42,7 @@ const UpdateFeaturedWorkForm: React.FC = () => {
     event.preventDefault();
 
     try {
-      await axios.put(`http://localhost:8080/api/featured-work/${id}`, {
+      await axiosInstance.put(`/featured-work/${id}`, {
         image,
         metadataimage,
         description,
@@ -81,12 +81,13 @@ const UpdateFeaturedWorkForm: React.FC = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto p-6">
-      <h1 className="text-2xl font-bold mb-4">Update Featured Work</h1>
+    <div className='w-full mx-auto p-10 bg-gray-400 '>
+      <div className="max-w-4xl mx-auto p-6 bg-gray-800 rounded-lg ">
+      <h1 className="text-2xl font-bold mb-4 text-white">Update Featured Work</h1>
       {message && <p className="bg-green-500 text-white p-2 rounded-md mb-4">{message}</p>}
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label className="block text-sm font-medium mb-1" htmlFor="image">Main Image URL</label>
+          <label className="block text-sm  text-white font-medium mb-1" htmlFor="image">Main Image URL</label>
           <input
             id="image"
             type="text"
@@ -97,7 +98,7 @@ const UpdateFeaturedWorkForm: React.FC = () => {
           />
         </div>
         <div>
-          <label className="block text-sm font-medium mb-1" htmlFor="image">Meta Data</label>
+          <label className="block text-sm font-medium text-white mb-1" htmlFor="image">Meta Data</label>
           <input
             id="metadataimage"
             type="text"
@@ -108,7 +109,7 @@ const UpdateFeaturedWorkForm: React.FC = () => {
           />
         </div>
         <div>
-          <label className="block text-sm font-medium mb-1" htmlFor="image">Title</label>
+          <label className="block text-sm font-medium text-white mb-1" htmlFor="image">Title</label>
           <input
             id="title"
             type="text"
@@ -129,7 +130,7 @@ const UpdateFeaturedWorkForm: React.FC = () => {
           />
         </div>
         <div>
-          <label className="block text-sm font-medium mb-1" htmlFor="description">WebsiteUrl</label>
+          <label className="block text-sm text-white font-medium mb-1" htmlFor="description">WebsiteUrl</label>
           <input
             id="websiterurl"
             value={websiteUrl}
@@ -139,7 +140,7 @@ const UpdateFeaturedWorkForm: React.FC = () => {
           />
         </div>
         <div>
-          <label className="block text-sm font-medium mb-1" htmlFor="imageType">Select Image Type</label>
+          <label className="block text-sm text-white font-medium mb-1" htmlFor="imageType">Select Image Type</label>
           <select
             id="imageType"
             value={imageType}
@@ -153,7 +154,7 @@ const UpdateFeaturedWorkForm: React.FC = () => {
         {imageType === 'laptopMobileView' ? (
           <>
             <div>
-              <label className="block text-sm font-medium mb-1">Mobile View Images</label>
+              <label className="block text-sm text-white font-medium mb-1">Mobile View Images</label>
               {mobileViewImages.map((url, index) => (
                 <div key={index} className="flex space-x-2 mb-2">
                   <input
@@ -179,7 +180,7 @@ const UpdateFeaturedWorkForm: React.FC = () => {
               </button>
             </div>
             <div>
-              <label className="block text-sm font-medium mb-1">Laptop View Images</label>
+              <label className="block text-sm text-white font-medium mb-1">Laptop View Images</label>
               {laptopViewImages.map((url, index) => (
                 <div key={index} className="flex space-x-2 mb-2">
                   <input
@@ -207,7 +208,7 @@ const UpdateFeaturedWorkForm: React.FC = () => {
           </>
         ) : (
           <div>
-            <label className="block text-sm font-medium mb-1">Brand Images</label>
+            <label className="block text-sm text-white font-medium mb-1">Brand Images</label>
             {brandImages.map((url, index) => (
               <div key={index} className="flex space-x-2 mb-2">
                 <input
@@ -236,6 +237,8 @@ const UpdateFeaturedWorkForm: React.FC = () => {
         <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded-md">Submit</button>
       </form>
     </div>
+    </div>
+    
   );
 };
 

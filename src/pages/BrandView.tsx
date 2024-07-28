@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import { useParams } from "react-router-dom";
+import axiosInstance from "../config/axios";
 
 const BrandView: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -9,7 +9,7 @@ const BrandView: React.FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:8080/api/featured-work/${id}`);
+        const response = await axiosInstance.get(`/featured-work/${id}`);
         setData(response.data);
       } catch (error) {
         console.error('Error fetching brand view data:', error);

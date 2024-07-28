@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import axiosInstance from "../config/axios";
 
 interface CardProps {
   imageType: "laptopMobileView" | "brand";
@@ -29,7 +29,7 @@ const Card: React.FC<CardProps> = ({ imageType, mainImage, metadataimage, id }) 
 
     if (window.confirm("Are you sure you want to delete this item?")) {
       try {
-        await axios.delete(`http://localhost:8080/api/featured-work/${id}`);
+        await axiosInstance.delete(`/featured-work/${id}`);
         alert("Item deleted successfully");
         // Optionally, you can handle the card removal from the UI or redirect the user
         // For example, you could use a state or context to remove the item from a list.
@@ -45,7 +45,7 @@ const Card: React.FC<CardProps> = ({ imageType, mainImage, metadataimage, id }) 
       className="card bg-gray-600 shadow-md text-white p-5 rounded-md cursor-pointer"
      
     >
-      <img  onClick={handleClick} src={mainImage} alt="main" className="w-full h-auto mb-5 rounded-lg" />
+      <img  onClick={handleClick} src={mainImage} alt="main" className="w-full h-[400px] mb-5 rounded-lg" />
       <h2 className="text-2xl font-bold mb-3">{metadataimage}</h2>
       <div className="flex justify-between">
         <button

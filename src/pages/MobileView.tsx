@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import { useParams } from "react-router-dom";
 import { useSpring, animated } from "@react-spring/web";
+import axiosInstance from "../config/axios";
 
 interface FeaturedWork {
   _id: string;
@@ -39,7 +39,7 @@ const MobileView: React.FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:8080/api/featured-work/${id}`);
+        const response = await axiosInstance.get(`featured-work/${id}`);
         setData(response.data);
       } catch (error) {
         console.error('Error fetching mobile view data:', error);
