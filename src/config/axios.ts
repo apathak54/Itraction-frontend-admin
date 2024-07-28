@@ -1,5 +1,6 @@
 import axios from 'axios';
-const baseURL = 'http://localhost:8080/api'
+//const baseURL = 'http://localhost:8080/api'
+const baseURL = 'https://itraction-admin.onrender.com/api'
 const axiosInstance = axios.create({
   baseURL: baseURL, // Replace with your API's base URL
   headers: {

@@ -32,18 +32,19 @@ const TestimonialList: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col justify-center items-start  p-4 ">
+    <div className='flex flex-col bg-gray-400 w-full mx-auto justify-center items-center'>
+        <div className=" w-full mx-auto p-4 ">
       <h1 className="text-3xl font-bold mb-4 text-white">Testimonials</h1>
       <Link to="/testimonials/new" className="mb-4 inline-block bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700">
         Add New Testimonial
       </Link>
-      <div className="flex flex-col justify-center items-center w-full bg-gray-800 p-4 rounded-lg shadow-md">
+      <div className="flex flex-wrap justify-center items-center  bg-gray-800 p-4 rounded-lg shadow-md">
         {testimonials.length === 0 ? (
           <p className="text-white">No testimonials found.</p>
         ) : (
           <ul>
             {testimonials.map(testimonial => (
-              <li key={testimonial._id} className="flex justify-between items-center mb-4 p-4 bg-gray-700 rounded-lg">
+              <li key={testimonial._id} className="flex flex-wrap justify-between items-center mb-4 p-4 bg-gray-700 rounded-lg">
                 <div>
                   <h2 className="text-xl text-white">{testimonial.name}</h2>
                   <p className="text-gray-400">{testimonial.role}</p>
@@ -66,6 +67,8 @@ const TestimonialList: React.FC = () => {
         )}
       </div>
     </div>
+    </div>
+    
   );
 };
 
